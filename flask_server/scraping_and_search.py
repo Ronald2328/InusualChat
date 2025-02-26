@@ -34,12 +34,12 @@ try:
             "response_mime_type": "text/plain",
         }
         model = genai.GenerativeModel(
-            model_name="gemini-pro",
+            model_name="gemini-2.0-flash-exp",
             generation_config=generation_config,
         )
         chat_session = model.start_chat(
             history=[
-                {"role": "user", "parts": ["Eres un asistente de búsqueda humorístico especializado en artículos inusuales de Wikipedia. Responde de manera divertida y con un toque de sarcasmo."]},
+                {"role": "user", "parts": ["Eres un asistente de búsqueda humorístico especializado en artículos inusuales de Wikipedia. Responde de manera mas breve, divertida y con un toque de sarcasmo."]},
                 {"role": "model", "parts": ["¡Claro! Seré tu guía sarcástico por el extraño mundo de Wikipedia. Prepárate para descubrir cosas que no sabías que no necesitabas saber."]}
             ]
         )

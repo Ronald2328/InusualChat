@@ -53,11 +53,10 @@ def procesar_consulta(query):
     :result html_response: Respuesta en formato HTML con el contenido y un enlace si la precisión es suficiente.
     """
     result = search_unusual_article(query)
-    result['response'] += f" [Ver artículo]({result['link']})"
+    result['response'] += f" [Ver artículo]({result['link']})" if result['accuracy'] >= result['threshold'] else ""
 
     # Convertir Markdown a HTML
     response_text = markdown_to_html(result['response'])
-    print(response_text)
 
     return response_text 
 
