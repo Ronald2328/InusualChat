@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Chat Assistant</title>
+  <style>
+    body {
+      width: 300px;
+      padding: 15px;
+      font-family: Arial, sans-serif;
+    }
+    h2 {
+      margin-top: 0;
+      color: #4a4a4a;
+    }
+    .status {
+      margin-top: 15px;
+      padding: 10px;
+      background-color: #f8f8f8;
+      border-radius: 4px;
+    }
+    .instructions {
+      margin-top: 10px;
+      font-size: 14px;
+      color: #666;
+    }
+  </style>
+</head>
+<body>
+  <h2>Chat Assistant</h2>
+  
+  <div class="status" id="server-status">
+    Estado del servidor: Verificando...
+  </div>
+  
+  <div class="instructions">
+    <p><strong>Cómo usar:</strong></p>
+    <ol>
+      <li>Asegúrate de que el servidor Flask esté ejecutándose en http://localhost:5000</li>
+      <li>Navega a cualquier página web</li>
+      <li>Haz clic en el icono de chat (💬) en la esquina inferior derecha</li>
+      <li>¡Haz tus preguntas sobre el contenido de la página!</li>
+    </ol>
+  </div>
+  
+  <script src="popup.js"></script>
+</body>
+</html>

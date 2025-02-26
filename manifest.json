@@ -1,0 +1,21 @@
+{
+  "manifest_version": 3,
+  "name": "Chat de lo Inusual",
+  "version": "0.23",
+  "description": "Descubre rarezas con una burbuja de chat flotante y respuestas curiosas.",
+  "permissions": ["activeTab", "scripting", "storage"],
+  "host_permissions": ["<all_urls>"],
+  "action": {
+    "default_popup": "popup.html"
+  },
+  "background": {
+    "service_worker": "background.js"
+  },
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "js": ["content.js"],
+      "css": ["styles.css"]
+    }
+  ]
+}
