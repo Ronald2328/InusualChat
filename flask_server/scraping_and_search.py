@@ -115,49 +115,55 @@ def scrape_unusual_articles():
 
     :return: Lista de artículos inusuales.
     """
-    # Verificar si los datos ya han sido almacenados en caché
     cache_file = "data/unusual_articles.json"
     if os.path.exists(cache_file):
         return load_from_json(cache_file)
     
-    # Extraer los datos de Wikipedia
     response = requests.get(BASE_URL)
     soup = BeautifulSoup(response.content, 'html.parser')
     articles = []
-    tables = soup.find_all('table', class_='wikitable') # Buscar tablas con artículos inusuales
-    
-    # Extraer los datos de las tablas
+    tables = soup.find_all('table', class_='wikitable')
+
     for table in tables:
         for row in table.find_all('tr'):
             cells = row.find_all(['td', 'th'])
             if len(cells) < 2:
                 continue
             
-            # Extraer el título, enlace y descripción del artículo
             flag = None
-            if cells[0].name == 'th':
-                flag_tag = cells[0].find('img')
+            first_cell = cells[0]
+
+            # Si la primera celda es un <th> con una imagen de bandera, extraerla y omitirla
+            if first_cell.name == 'th' and first_cell.find('img'):
+                flag_tag = first_cell.find('img')
                 if flag_tag:
                     flag = flag_tag['src']
-                cells = cells[1:]
-            
+                cells = cells[1:]  # Omitir la celda de la bandera
+
             if len(cells) < 2:
                 continue
-            
-            title_cell = cells[0].find('a', href=True)
-            if not title_cell:
-                continue
 
-            # Almacenar los datos del artículo
-            title = title_cell.get_text(strip=True)
-            link = "https://en.wikipedia.org" + title_cell['href']
-            description = cells[1].get_text(strip=True)
+            title_cell = cells[0].find_all('a', href=True)
+
+            # Ignorar enlaces a archivos tipo "/wiki/File:"
+            title_link = None
+            for link in title_cell:
+                if not link["href"].startswith("/wiki/File:"):
+                    title_link = link
+                    break
             
+            if not title_link:
+                continue  # No se encontró un título válido
+
+            title = title_link.get_text(strip=True)
+            link = "https://en.wikipedia.org" + title_link['href']
+            description = cells[1].get_text(strip=True)
+
             articles.append({
                 "title": title,
                 "link": link,
-                "description": description if description else "Descripción no disponible", 
-                "flag": f"https:{flag}" if flag else None 
+                "description": description if description else "Descripción no disponible",
+                "flag": f"https:{flag}" if flag else None
             })
     
     save_to_json(articles)
