@@ -1,5 +1,5 @@
 # Gemini API Key
-GEMINI_API_KEY = "AIzaSyBZlGNBidxc5m4iUlL1pUGGp6zSg0jQbps"
+GEMINI_API_KEY = "YOUR_KEY"
 
 # Other configuration settings can be added here
 SIMILARITY_THRESHOLD = 0.4
