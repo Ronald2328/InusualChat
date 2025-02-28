@@ -15,7 +15,6 @@ document.addEventListener('DOMContentLoaded', function() {
           serverStatus.style.color = 'green';
         })
         .catch(error => {
-          console.error("Error al conectar con el servidor:", error);
           serverStatus.innerHTML = 'Estado del servidor: No conectado ❌<br>Asegúrate de ejecutar el servidor Flask en http://localhost:5000';
           serverStatus.style.color = 'red';
         });
